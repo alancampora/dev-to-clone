@@ -1,20 +1,27 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
-import { User } from './entity/User';
+import * as express from 'express';
+import { ApolloServer } from 'apollo-server-express';
 
-createConnection()
-	.then(async connection => {
-		console.log('Inserting a new user into the database...');
-		const user = new User();
-		user.email = 'test@test.com';
-		user.password = 'this-is-a-password';
-		await connection.manager.save(user);
-		console.log('Saved a new user with id: ' + user.id);
+import  typeDefs  from './type-defs';
+import resolvers  from './resolvers';
 
-		console.log('Loading users from the database...');
-		const users = await connection.manager.find(User);
-		console.log('Loaded users: ', users);
+const startServer = async () => {
+	const server = new ApolloServer({ typeDefs, resolvers });
 
-		console.log('Here you can setup and run express/koa/any other framework.');
-	})
-	.catch(error => console.log(error));
+	const path = '/graphql';
+
+	await createConnection();
+
+	const app = express();
+
+	server.applyMiddleware({ app, path });
+
+	app.listen({ port: 4000 }, () =>
+		console.log(
+			`🚀 Server ready at http://localhost:4000${server.graphqlPath}`,
+		),
+	);
+};
+
+startServer();
