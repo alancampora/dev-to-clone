@@ -1,0 +1,15 @@
+{
+	"name": "dev-to-clone",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "git@github.com:alancampora/authentication.git",
+	"author": "Alan Campora <acampora@medallia.com>",
+	"license": "MIT",
+	"scripts": {
+		"bootstrap": "lerna bootstrap --hoist",
+		"start": "lerna run start --scope=@dev-to-clone/server --stream"
+	},
+	"devDependencies": {
+		"lerna": "^3.20.2"
+	}
+}
