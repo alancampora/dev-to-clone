@@ -9,7 +9,7 @@
    },
    "dependencies": {
       "apollo-server-express": "^2.9.16",
-      "express": "^4.17.1",
+      "express": "^4.17.3",
       "pg": "^7.17.1",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.2.22"
